@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Feed</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let item of listaFilmes">
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/imgs/avatar.png">
+      </ion-avatar>
+      <h2 class="feed_title">{{ item.original_title }}</h2>
+      <p class="feed_data">{{ item.release_date }}</p>
+    </ion-item>
+
+    <img [src]="'https://image.tmdb.org/t/p/w300' + item.backdrop_path">
+
+    <ion-card-content>
+      <p> {{ item.overview }}</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>{{ jsonTeste.qtde_likes }} Likes</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>{{ jsonTeste.qtde_comments }} Comments</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          {{ jsonTeste.time_commets }}
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+    <button ion-button block (click)="abrirDetalhes(item)">Detalhes</button>
+
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
